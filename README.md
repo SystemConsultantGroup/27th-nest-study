@@ -3,6 +3,12 @@
 
 * Node.js 18.x
 
+순서:
+
+1. nest new ~~~
+2. nest generate resource products // module, service 각각 따로 생성하기
+3. npm i --save class-validator class-transformer // class-validator class-transformer 설치
+
 
 <p align="center">
   <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
