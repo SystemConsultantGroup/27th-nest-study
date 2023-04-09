@@ -1,3 +1,5 @@
+import { Exclude } from "class-transformer";
+
 export class Product {
   id: number;
   name: string;
@@ -6,4 +8,7 @@ export class Product {
   
   createdAt: Date;
   updatedAt: Date;
+
+  @Exclude()
+  isLocked: boolean;
 }
