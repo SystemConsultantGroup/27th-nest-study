@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, Length } from 'class-validator';
 
 export class CreateProductDto {
@@ -7,6 +8,7 @@ export class CreateProductDto {
     name: string;
 
     @IsNotEmpty()
+    @Type(() => Number)
     @IsInt()
     @IsPositive()
     price: number;
