@@ -34,7 +34,7 @@ export class ProductsService {
 
     return product;
   }
-  
+
   update(id: number, updateProductDto: UpdateProductDto) {
     const product = this.findOne(id);
 
@@ -47,7 +47,8 @@ export class ProductsService {
   }
 
   remove(id: number) {
-    return `This action removes a #${id} product`;
+    const product = this.findOne(id);
+    this.products.splice(this.products.indexOf(product), 1);
   }
 }
 
