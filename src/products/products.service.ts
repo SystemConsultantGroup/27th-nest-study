@@ -34,12 +34,21 @@ export class ProductsService {
 
     return product;
   }
-
+  
   update(id: number, updateProductDto: UpdateProductDto) {
-    return `This action updates a #${id} product`;
+    const product = this.findOne(id);
+
+    product.name = updateProductDto.name ?? product.name;
+    product.price = updateProductDto.price ?? product.price;
+    product.description = updateProductDto.description ?? product.description;
+    product.updatedAt = new Date();
+
+    return product;
   }
 
   remove(id: number) {
     return `This action removes a #${id} product`;
   }
 }
+
+
