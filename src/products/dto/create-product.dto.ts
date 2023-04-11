@@ -4,7 +4,7 @@ import { IsInt, IsNotEmpty, IsOptional, IsPositive, IsString, Length } from 'cla
 export class CreateProductDto {
     @IsNotEmpty()
     @IsString()
-    @Length(2, 30)
+    @Length(2, 20)
     name: string;
 
     @IsNotEmpty()

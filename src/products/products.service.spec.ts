@@ -124,8 +124,7 @@ describe('ProductsService', () => {
       const updateProductDto = new UpdateProductDto();
       updateProductDto.price = 10000;
       const updatedProduct = service.update(product.id, updateProductDto);
-
-      expect(updatedProduct.createdAt !== updatedProduct.updatedAt).toBe(true);
+      expect(updatedProduct.createdAt).not.toBe(updatedProduct.updatedAt);
     });
 
     it('존재하지 않는 id로 제품을 업데이트하려고 하면 BadRequestException을 던진다.', () => {

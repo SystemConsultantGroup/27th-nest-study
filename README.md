@@ -11,4 +11,5 @@
 4. Entity 생성, DTO 구현, create API 구현
 5. findAll, findOne API 구현
 6. update API 구현
-6. remove API 구현
+7. remove API 구현
+8. npm run test 테스트 통과
