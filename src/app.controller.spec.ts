@@ -5,6 +5,7 @@ import { ClassSerializerInterceptor, HttpStatus, INestApplication, ValidationPip
 import * as request from 'supertest';
 import { ProductsModule } from './products/products.module';
 import { Reflector } from '@nestjs/core';
+import { PrismaModule } from './prisma/prisma.module';
 
 describe('AppController', () => {
   let app: INestApplication;
@@ -12,7 +13,7 @@ describe('AppController', () => {
 
   beforeEach(async () => {
     const testingModule: TestingModule = await Test.createTestingModule({
-      imports: [ProductsModule],
+      imports: [ProductsModule, PrismaModule],
       controllers: [AppController],
       providers: [AppService],
     }).compile();
