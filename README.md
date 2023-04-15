@@ -3,7 +3,7 @@
 
 * Node.js 18.x
 
-순서:
+실습1 순서:
 
 1. nest new ~~~
 2. nest generate resource products // module, service 각각 따로 생성하기
@@ -13,3 +13,12 @@
 6. update API 구현
 7. remove API 구현
 8. npm run test 테스트 통과
+
+실습2 순서:
+
+1. npm install --save @prisma/client prisma
+2. npx prisma init
+3. npx prisma generate
+4. npx prisma validate, npx prisma db push (npx prisma migration dev)
+5. nest g module prisma, nest g service prisma
+6. prisma 코드 설정
