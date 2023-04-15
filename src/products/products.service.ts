@@ -1,33 +1,34 @@
 import { BadRequestException, HttpException, Injectable, MethodNotAllowedException } from '@nestjs/common';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { Product } from './entities/product.entity';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ProductsService {
-  private products: Product[] = [];
-  private primaryKey = 1;
+  constructor(private readonly prisma: PrismaService) {}
 
-  create(createProductDto: CreateProductDto) {
-    const product = new Product();
-    product.id = this.primaryKey++;
-    product.name = createProductDto.name;
-    product.price = createProductDto.price;
-    product.description = createProductDto.description;
-    product.createdAt = new Date();
-    product.updatedAt = product.createdAt;
-    product.isLocked = false;
+  async create(createProductDto: CreateProductDto) {
+    const product = await this.prisma.product.create({
+      data: {
+        name: createProductDto.name,
+        price: createProductDto.price,
+        description: createProductDto.description,
+      }
+    })
 
-    this.products.push(product);
     return product;
   }
 
-  findAll() {
-    return this.products;
+  async findAll() {
+    return await this.prisma.product.findMany();
   }
 
-  findOne(id: number) {
-    const product = this.products.find((product) => product.id === id);
+  async findOne(id: number) {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id
+      },
+    });
 
     if(!product) {
       throw new BadRequestException("Cannot Find Product");
@@ -36,25 +37,36 @@ export class ProductsService {
     return product;
   }
 
-  update(id: number, updateProductDto: UpdateProductDto) {
-    const product = this.findOne(id);
+  async update(id: number, updateProductDto: UpdateProductDto) {
+    const product = await this.findOne(id);
 
     if (product.isLocked) {
       throw new HttpException("Product Is Locked", 423);
     }
 
-    product.name = updateProductDto.name ?? product.name;
-    product.price = updateProductDto.price ?? product.price;
-    product.description = updateProductDto.description ?? product.description;
-    product.updatedAt = new Date();
-    product.isLocked = updateProductDto.isLocked ?? product.isLocked;
+    const updatedProduct = await this.prisma.product.update({
+      where: {
+        id: product.id,
+      },
+      data: {
+        name: updateProductDto.name,
+        price: updateProductDto.price,
+        description: updateProductDto.description,
+        isLocked: updateProductDto.isLocked,
+      },
+    });
 
-    return product;
+    return updatedProduct;
   }
 
-  remove(id: number) {
-    const product = this.findOne(id);
-    this.products.splice(this.products.indexOf(product), 1);
+  async remove(id: number) {
+    const product = await this.findOne(id);
+
+    await this.prisma.product.delete({
+      where: {
+        id: product.id,
+      },
+    });
   }
 }
 

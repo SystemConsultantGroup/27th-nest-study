@@ -21,4 +21,5 @@
 3. npx prisma generate
 4. npx prisma validate, npx prisma db push (npx prisma migration dev)
 5. nest g module prisma, nest g service prisma
-6. prisma 코드 설정
+6. Prisma 코드 설정
+7. Prisma를 통해 ProductService 구현
