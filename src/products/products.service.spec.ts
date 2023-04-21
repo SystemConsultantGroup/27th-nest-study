@@ -99,7 +99,12 @@ describe('ProductsService', () => {
     });
 
     it('존재하지 않는 id로 제품을 찾으려고 하면 BadRequestException을 던진다.', async () => {
-      await expect(service.findOne(-1)).rejects.toThrow(BadRequestException);
+      try {
+        await service.findOne(-1);
+        fail('Expected exception to be thrown.');
+      } catch (error) {
+        expect(error instanceof BadRequestException).toBe(true);
+      }
     });
   });
 
@@ -137,7 +142,12 @@ describe('ProductsService', () => {
     });
 
     it('존재하지 않는 id로 제품을 업데이트하려고 하면 BadRequestException을 던진다.', async () => {
-      await expect(service.update(-1, null)).rejects.toThrow(BadRequestException);
+      try {
+        await service.update(-1, null);
+        fail('Expected exception to be thrown.');
+      } catch (error) {
+        expect(error instanceof BadRequestException).toBe(true);
+      }
     });
 
     it('잠긴 제품을 업데이트하려고 하면 Locked Exception을 던진다.', async () => {
@@ -152,7 +162,12 @@ describe('ProductsService', () => {
       updateProductDto.isLocked = true;
       await service.update(id, updateProductDto);
 
-      await expect(service.update(id, updateProductDto)).rejects.toThrow(HttpException);
+      try {
+        await service.update(id, updateProductDto);
+        fail('Expected exception to be thrown.');
+      } catch (error) {
+        expect(error instanceof HttpException).toBe(true);
+      }
     });
   });
 
@@ -171,7 +186,12 @@ describe('ProductsService', () => {
     });
 
     it('존재하지 않는 id로 제품을 삭제하려고 하면 BadRequestException을 던진다.', async () => {
-      await expect(service.remove(-1)).rejects.toThrow(BadRequestException);
+      try {
+        await service.remove(-1);
+        fail('Expected exception to be thrown.');
+      } catch (error) {
+        expect(error instanceof BadRequestException).toBe(true);
+      }
     });
   });
 });

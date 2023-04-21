@@ -23,3 +23,4 @@
 5. nest g module prisma, nest g service prisma
 6. Prisma 코드 설정
 7. Prisma를 통해 ProductService 구현
+8. npm run test 테스트 통과
